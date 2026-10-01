@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Tourist Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="logo">🌍</div>
+
+            <h1>AI Tourist Tracker</h1>
+
+            <p>Plan your perfect journey with AI</p>
+
+            <div class="hero-tags">
+
+                <span>✈️ Explore</span>
+                <span>🗺️ Discover</span>
+                <span>✨ Experience</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- MAIN -->
+
+    <div class="container">
+
+
+        <!-- FORM -->
+
+        <div class="travel-card">
+
+            <div class="section-heading">
+
+                <span class="heading-icon">🧳</span>
+
+                <div>
+
+                    <h2>Plan Your Journey</h2>
+
+                    <p>Tell us about your dream trip</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- DESTINATION -->
+
+            <div class="form-group">
+
+                <label for="destination">
+                    📍 Destination
+                </label>
+
+                <input
+                    type="text"
+                    id="destination"
+                    placeholder="Where do you want to go?"
+                >
+
+            </div>
+
+
+            <!-- DAYS + BUDGET -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label for="days">
+                        📅 Number of Days
+                    </label>
+
+                    <input
+                        type="number"
+                        id="days"
+                        min="1"
+                        max="30"
+                        placeholder="e.g. 3"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="budget">
+                        💰 Budget
+                    </label>
+
+                    <input
+                        type="number"
+                        id="budget"
+                        min="1"
+                        placeholder="Budget in ₹"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- INTERESTS -->
+
+            <div class="form-group">
+
+                <label>
+                    ❤️ What do you love?
+                </label>
+
+                <p class="interest-description">
+                    Select one or more interests
+                </p>
+
+
+                <div class="interests">
+
+
+                    <label class="interest">
+
+                        <input
+                            type="checkbox"
+                            name="interest"
+                            value="Beaches"
+                        >
+
+                        <span class="interest-icon">🏖️</span>
+
+                        <span>Beaches</span>
+
+                    </label>
+
+
+                    <label class="interest">
+
+                        <input
+                            type="checkbox"
+                            name="interest"
+                            value="Nature"
+                        >
+
+                        <span class="interest-icon">🌲</span>
+
+                        <span>Nature</span>
+
+                    </label>
+
+
+                    <label class="interest">
+
+                        <input
+                            type="checkbox"
+                            name="interest"
+                            value="History and Culture"
+                        >
+
+                        <span class="interest-icon">🏛️</span>
+
+                        <span>History & Culture</span>
+
+                    </label>
+
+
+                    <label class="interest">
+
+                        <input
+                            type="checkbox"
+                            name="interest"
+                            value="Food"
+                        >
+
+                        <span class="interest-icon">🍴</span>
+
+                        <span>Food</span>
+
+                    </label>
+
+
+                    <label class="interest">
+
+                        <input
+                            type="checkbox"
+                            name="interest"
+                            value="Shopping"
+                        >
+
+                        <span class="interest-icon">🛍️</span>
+
+                        <span>Shopping</span>
+
+                    </label>
+
+
+                    <label class="interest">
+
+                        <input
+                            type="checkbox"
+                            name="interest"
+                            value="Adventure"
+                        >
+
+                        <span class="interest-icon">🏔️</span>
+
+                        <span>Adventure</span>
+
+                    </label>
+
+
+                    <label class="interest">
+
+                        <input
+                            type="checkbox"
+                            name="interest"
+                            value="Relaxation"
+                        >
+
+                        <span class="interest-icon">🧘</span>
+
+                        <span>Relaxation</span>
+
+                    </label>
+
+
+                    <label class="interest">
+
+                        <input
+                            type="checkbox"
+                            name="interest"
+                            value="Photography"
+                        >
+
+                        <span class="interest-icon">📸</span>
+
+                        <span>Photography</span>
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="button"
+                class="generate-button"
+                id="generateButton"
+                onclick="generateTrip()"
+            >
+
+                <span>✨</span>
+
+                Generate My Trip
+
+                <span>✈️</span>
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- RESULT -->
+
+        <div id="result"></div>
+
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>🌎 AI Tourist Tracker</p>
+
+        <span>Your journey starts here ✨</span>
+
+    </footer>
+
+
+</div>
+
+
+
+<script>
+
+
+// ======================================================
+// GENERATE TRIP
+// ======================================================
+
+async function generateTrip() {
+
+
+    const destination =
+        document.getElementById("destination")
+            .value
+            .trim();
+
+
+    const days =
+        document.getElementById("days")
+            .value
+            .trim();
+
+
+    const budget =
+        document.getElementById("budget")
+            .value
+            .trim();
+
+
+    const selectedInterests =
+        document.querySelectorAll(
+            'input[name="interest"]:checked'
+        );
+
+
+    const interests =
+        Array.from(selectedInterests)
+            .map(function(checkbox) {
+
+                return checkbox.value;
+
+            });
+
+
+
+    // ==================================================
+    // VALIDATION
+    // ==================================================
+
+
+    if (destination === "") {
+
+        showError("Please enter your destination.");
+
+        return;
+
+    }
+
+
+    if (days === "") {
+
+        showError("Please enter the number of days.");
+
+        return;
+
+    }
+
+
+    const numberOfDays =
+        Number(days);
+
+
+    if (
+        !Number.isInteger(numberOfDays) ||
+        numberOfDays < 1
+    ) {
+
+        showError(
+            "Number of days must be a whole number greater than 0."
+        );
+
+        return;
+
+    }
+
+
+    if (numberOfDays > 30) {
+
+        showError(
+            "For now, please choose a maximum of 30 days."
+        );
+
+        return;
+
+    }
+
+
+    if (budget === "") {
+
+        showError("Please enter your budget.");
+
+        return;
+
+    }
+
+
+    const budgetAmount =
+        Number(budget);
+
+
+    if (
+        !Number.isFinite(budgetAmount) ||
+        budgetAmount <= 0
+    ) {
+
+        showError(
+            "Please enter a valid budget."
+        );
+
+        return;
+
+    }
+
+
+    if (interests.length === 0) {
+
+        showError(
+            "Please choose at least one interest."
+        );
+
+        return;
+
+    }
+
+
+
+    // ==================================================
+    // LOADING
+    // ==================================================
+
+
+    const result =
+        document.getElementById("result");
+
+
+    const button =
+        document.getElementById("generateButton");
+
+
+    button.disabled = true;
+
+    button.innerHTML = `
+        <span>⏳</span>
+        Creating Your Trip...
+        <span>✈️</span>
+    `;
+
+
+    result.innerHTML = `
+
+        <div class="loading">
+
+            <div class="loading-icon">✈️</div>
+
+            <h2>Creating your adventure...</h2>
+
+            <p>
+                AI is preparing your travel itinerary.
+            </p>
+
+            <p>
+                This may take a few seconds.
+            </p>
+
+        </div>
+
+    `;
+
+
+
+    // ==================================================
+    // SEND REQUEST
+    // ==================================================
+
+
+    try {
+
+
+        console.log(
+            "Sending request to backend..."
+        );
+
+
+        const response =
+            await fetch(
+                "http://127.0.0.1:5000/plan",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        destination:
+                            destination,
+
+                        days:
+                            numberOfDays,
+
+                        budget:
+                            budgetAmount,
+
+                        interests:
+                            interests
+
+                    })
+
+                }
+            );
+
+
+
+        // Check whether server responded
+
+        let data;
+
+
+        try {
+
+            data =
+                await response.json();
+
+        }
+
+        catch {
+
+            throw new Error(
+                "Backend did not return valid JSON."
+            );
+
+        }
+
+
+
+        console.log(
+            "Backend response:",
+            data
+        );
+
+
+
+        // Backend error
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error ||
+                "Something went wrong on the backend."
+            );
+
+        }
+
+
+
+        // No itinerary
+
+        if (
+            !data.itinerary ||
+            data.itinerary.trim() === ""
+        ) {
+
+            throw new Error(
+                "No itinerary was returned."
+            );
+
+        }
+
+
+
+        // ==================================================
+        // CREATE DAY CARDS
+        // ==================================================
+
+
+        const itineraryHTML =
+            createDayCards(
+                data.itinerary
+            );
+
+
+
+        // ==================================================
+        // DISPLAY RESULT
+        // ==================================================
+
+
+        result.innerHTML = `
+
+            <div class="result-card">
+
+
+                <div class="result-header">
+
+                    <div>
+
+                        <p class="result-small-title">
+                            ✨ Your AI Travel Plan
+                        </p>
+
+                        <h2>
+                            🌍 ${escapeHTML(
+                                data.destination
+                            )}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="trip-info">
+
+
+                    <div class="info-box">
+
+                        <span>📅</span>
+
+                        <div>
+
+                            <small>
+                                Duration
+                            </small>
+
+                            <strong>
+                                ${data.days} Days
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="info-box">
+
+                        <span>💰</span>
+
+                        <div>
+
+                            <small>
+                                Budget
+                            </small>
+
+                            <strong>
+                                ₹${Number(
+                                    data.budget
+                                ).toLocaleString("en-IN")}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="info-box">
+
+                        <span>❤️</span>
+
+                        <div>
+
+                            <small>
+                                Interests
+                            </small>
+
+                            <strong>
+                                ${data.interests
+                                    .map(escapeHTML)
+                                    .join(", ")}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <h2 class="itinerary-title">
+                    🗺️ Your Itinerary
+                </h2>
+
+
+
+                <div class="day-container">
+
+                    ${itineraryHTML}
+
+                </div>
+
+
+            </div>
+
+        `;
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+            "ERROR:",
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to generate the trip."
+        );
+
+
+    }
+
+
+    finally {
+
+
+        button.disabled = false;
+
+
+        button.innerHTML = `
+            <span>✨</span>
+            Generate My Trip
+            <span>✈️</span>
+        `;
+
+
+    }
+
+}
+
+
+
+// ======================================================
+// CREATE DAY CARDS
+// ======================================================
+
+function createDayCards(text) {
+
+
+    const lines =
+        text.split("\n");
+
+
+    const days = [];
+
+
+    let currentDay = null;
+
+
+
+    for (
+        let i = 0;
+        i < lines.length;
+        i++
+    ) {
+
+
+        const line =
+            lines[i].trim();
+
+
+        if (line === "") {
+
+            continue;
+
+        }
+
+
+
+        // Detect:
+        // DAY 1
+        // Day 1:
+        // **Day 1**
+
+        const dayMatch =
+            line.match(
+                /^(?:\*\*)?DAY\s+(\d+)(?:\*\*)?:?/i
+            );
+
+
+
+        if (dayMatch) {
+
+
+            if (currentDay !== null) {
+
+                days.push(
+                    currentDay
+                );
+
+            }
+
+
+            currentDay = {
+
+                number:
+                    dayMatch[1],
+
+                content: []
+
+            };
+
+
+            continue;
+
+        }
+
+
+
+        if (currentDay !== null) {
+
+            currentDay.content.push(
+                line
+            );
+
+        }
+
+    }
+
+
+
+    if (currentDay !== null) {
+
+        days.push(
+            currentDay
+        );
+
+    }
+
+
+
+    // ==================================================
+    // FALLBACK
+    // ==================================================
+
+
+    if (days.length === 0) {
+
+        return `
+
+            <div class="day-card">
+
+                <div class="day-content">
+
+                    ${formatText(text)}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+
+    // ==================================================
+    // CREATE HTML
+    // ==================================================
+
+
+    let html = "";
+
+
+
+    days.forEach(function(day) {
+
+
+        html += `
+
+            <div class="day-card">
+
+
+                <div class="day-title">
+
+                    <span class="day-number">
+
+                        ${escapeHTML(
+                            day.number
+                        )}
+
+                    </span>
+
+
+                    <div>
+
+                        <small>
+                            TRAVEL DAY
+                        </small>
+
+                        <h3>
+                            Day ${escapeHTML(
+                                day.number
+                            )}
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="day-content">
+
+                    ${formatText(
+                        day.content.join("\n")
+                    )}
+
+                </div>
+
+
+            </div>
+
+        `;
+
+    });
+
+
+
+    return html;
+
+}
+
+
+
+// ======================================================
+// FORMAT AI TEXT
+// ======================================================
+
+function formatText(text) {
+
+
+    let html =
+        escapeHTML(text);
+
+
+
+    // Bold markdown
+
+    html =
+        html.replace(
+            /\*\*(.*?)\*\*/g,
+            "<strong>$1</strong>"
+        );
+
+
+
+    // Section headings
+
+    html =
+        html.replace(
+            /^(Morning:|Afternoon:|Evening:|Food suggestions:|Estimated cost.*?:|TOTAL ESTIMATED BUDGET|TRAVEL TIPS)/gim,
+            "<strong class='section-title'>$1</strong>"
+        );
+
+
+
+    // Bullet points
+
+    html =
+        html.replace(
+            /^-\s+(.*)$/gm,
+            "<div class='bullet'>• $1</div>"
+        );
+
+
+
+    // New lines
+
+    html =
+        html.replace(
+            /\n/g,
+            "<br>"
+        );
+
+
+    return html;
+
+}
+
+
+
+// ======================================================
+// SHOW ERROR
+// ======================================================
+
+function showError(message) {
+
+
+    document.getElementById(
+        "result"
+    ).innerHTML = `
+
+        <div class="error">
+
+            <h3>
+                ❌ Trip could not be generated
+            </h3>
+
+            <p>
+                ${escapeHTML(message)}
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+// ======================================================
+// SECURITY
+// ======================================================
+
+function escapeHTML(text) {
+
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
