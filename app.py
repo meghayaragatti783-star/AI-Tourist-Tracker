@@ -46,7 +46,12 @@ def plan():
 
         days = data.get("days")
         budget = data.get("budget")
-        interests = data.get("interests", [])
+
+        # Accept both "interests" and "interest"
+        interests = data.get("interests")
+
+        if interests is None:
+            interests = data.get("interest", [])
 
         # Destination validation
         if not destination:
@@ -97,7 +102,7 @@ def plan():
 
         # Interests
         if not isinstance(interests, list):
-            interests = [str(interests)]
+            interests = [interests]
 
         interests = [
             str(interest).strip()
@@ -190,18 +195,28 @@ Return exactly {days} requested travel days.
 Do not create Day {days + 1}.
 """
 
+        print("Sending request to Gemini...")
+        print("Destination:", destination)
+        print("Days:", days)
+        print("Budget:", budget)
+        print("Interests:", interests)
+
         # Gemini request
         response = client.models.generate_content(
-            model="gemini-3.5-flash-lite",
+            model="gemini-2.5-flash",
             contents=prompt
         )
 
         itinerary = response.text
 
         if not itinerary:
+            print("ERROR: Gemini returned no text")
+
             return jsonify({
                 "error": "AI did not return an itinerary"
             }), 500
+
+        print("Gemini itinerary generated successfully")
 
         return jsonify({
             "success": True,
@@ -214,10 +229,14 @@ Do not create Day {days + 1}.
 
     except Exception as e:
 
-        print("ERROR:", str(e))
+        print("===================================")
+        print("GEMINI/BACKEND ERROR:")
+        print(repr(e))
+        print("===================================")
 
         return jsonify({
-            "error": "Unable to generate itinerary. Please try again."
+            "error": "Unable to generate itinerary. Please try again.",
+            "details": str(e)
         }), 500
 
 
@@ -231,3 +250,4 @@ if __name__ == "__main__":
         port=port
     )
 
+    
