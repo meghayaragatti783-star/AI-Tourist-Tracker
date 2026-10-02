@@ -202,10 +202,8 @@ Do not create Day {days + 1}.
         print("Interests:", interests)
 
         # Gemini request
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt
-        )
+        chat = client.chats.create(model="gemini-2.5-flash")
+        response = chat.send_message(prompt)
 
         itinerary = response.text
 
