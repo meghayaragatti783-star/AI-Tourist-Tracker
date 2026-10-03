@@ -3,6 +3,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from google import genai
 import os
+import traceback
 
 # Load environment variables
 load_dotenv()
@@ -17,8 +18,10 @@ CORS(app)
 api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
-    print("ERROR: GEMINI_API_KEY not found")
+    print("ERROR: GEMINI_API_KEY not found", flush=True)
     raise ValueError("GEMINI_API_KEY is missing")
+
+print("GEMINI_API_KEY found", flush=True)
 
 # Create Gemini client
 client = genai.Client(api_key=api_key)
@@ -35,6 +38,8 @@ def plan():
     try:
         data = request.get_json()
 
+        print("Received data:", data, flush=True)
+
         if not data:
             return jsonify({
                 "error": "No data received"
@@ -47,7 +52,6 @@ def plan():
         days = data.get("days")
         budget = data.get("budget")
 
-        # Accept both "interests" and "interest"
         interests = data.get("interests")
 
         if interests is None:
@@ -128,13 +132,10 @@ Number of days: {days}
 Total budget: ₹{budget:.0f}
 Interests: {interest_text}
 
-IMPORTANT:
-
 Generate EXACTLY {days} days.
 
 Start with Day 1.
 End with Day {days}.
-
 Do not create Day {days + 1}.
 
 For every day provide:
@@ -195,26 +196,38 @@ Return exactly {days} requested travel days.
 Do not create Day {days + 1}.
 """
 
-        print("Sending request to Gemini...")
-        print("Destination:", destination)
-        print("Days:", days)
-        print("Budget:", budget)
-        print("Interests:", interests)
+        print("===================================", flush=True)
+        print("Sending request to Gemini...", flush=True)
+        print("Destination:", destination, flush=True)
+        print("Days:", days, flush=True)
+        print("Budget:", budget, flush=True)
+        print("Interests:", interests, flush=True)
+        print("===================================", flush=True)
 
         # Gemini request
-        chat = client.chats.create(model="gemini-2.5-flash")
+        print("Creating Gemini chat...", flush=True)
+
+        chat = client.chats.create(
+            model="gemini-2.5-flash"
+        )
+
+        print("Gemini chat created.", flush=True)
+        print("Sending prompt to Gemini...", flush=True)
+
         response = chat.send_message(prompt)
+
+        print("Gemini response received.", flush=True)
 
         itinerary = response.text
 
         if not itinerary:
-            print("ERROR: Gemini returned no text")
+            print("ERROR: Gemini returned no text", flush=True)
 
             return jsonify({
                 "error": "AI did not return an itinerary"
             }), 500
 
-        print("Gemini itinerary generated successfully")
+        print("Gemini itinerary generated successfully.", flush=True)
 
         return jsonify({
             "success": True,
@@ -227,10 +240,13 @@ Do not create Day {days + 1}.
 
     except Exception as e:
 
-        print("===================================")
-        print("GEMINI/BACKEND ERROR:")
-        print(repr(e))
-        print("===================================")
+        print("===================================", flush=True)
+        print("!!! GEMINI/BACKEND ERROR !!!", flush=True)
+        print("ERROR TYPE:", type(e).__name__, flush=True)
+        print("ERROR MESSAGE:", str(e), flush=True)
+        print("FULL TRACEBACK:", flush=True)
+        traceback.print_exc()
+        print("===================================", flush=True)
 
         return jsonify({
             "error": "Unable to generate itinerary. Please try again.",
@@ -247,5 +263,9 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=port
     )
+
+
+
+           
 
     
