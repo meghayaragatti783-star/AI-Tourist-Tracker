@@ -16,7 +16,9 @@ body {
     padding-bottom: 40px;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero {
     min-height: 280px;
@@ -35,6 +37,7 @@ body {
 
     border-radius: 0 0 45px 45px;
     position: relative;
+    overflow: hidden;
 }
 
 .hero-content {
@@ -67,10 +70,12 @@ body {
 .hero-tags span {
     padding: 8px 14px;
     border-radius: 20px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-/* CONTAINER */
+/* =========================
+   CONTAINER
+========================= */
 
 .container {
     width: 92%;
@@ -80,13 +85,15 @@ body {
     z-index: 5;
 }
 
-/* CARD */
+/* =========================
+   CARD
+========================= */
 
 .travel-card {
     background: white;
     padding: 35px;
     border-radius: 28px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.13);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.13);
 }
 
 .section-heading {
@@ -99,6 +106,7 @@ body {
 .heading-icon {
     width: 55px;
     height: 55px;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,7 +126,9 @@ body {
     margin-top: 5px;
 }
 
-/* FORM */
+/* =========================
+   FORM
+========================= */
 
 .form-group {
     margin-bottom: 22px;
@@ -141,9 +151,12 @@ input[type="text"],
 input[type="number"] {
     width: 100%;
     padding: 15px;
+
     border-radius: 14px;
     border: 2px solid #d7eeee;
+
     background: #f9ffff;
+
     font-size: 16px;
     outline: none;
 }
@@ -151,10 +164,12 @@ input[type="number"] {
 input[type="text"]:focus,
 input[type="number"]:focus {
     border-color: #00acc1;
-    box-shadow: 0 0 0 4px rgba(0,172,193,0.1);
+    box-shadow: 0 0 0 4px rgba(0, 172, 193, 0.1);
 }
 
-/* INTERESTS */
+/* =========================
+   INTERESTS
+========================= */
 
 .interest-description {
     color: #78909c;
@@ -167,10 +182,6 @@ input[type="number"]:focus {
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
 }
-
-/* IMPORTANT:
-   Keep checkbox visible and clickable
-*/
 
 .interest {
     display: flex;
@@ -195,6 +206,7 @@ input[type="number"]:focus {
     display: block;
     width: 18px;
     height: 18px;
+
     cursor: pointer;
     accent-color: #00897b;
 }
@@ -214,7 +226,7 @@ input[type="number"]:focus {
 
     border-color: #00897b;
 
-    box-shadow: 0 6px 15px rgba(0,137,123,0.15);
+    box-shadow: 0 6px 15px rgba(0, 137, 123, 0.15);
 }
 
 .interest span {
@@ -222,7 +234,9 @@ input[type="number"]:focus {
     font-weight: bold;
 }
 
-/* BUTTON */
+/* =========================
+   BUTTON
+========================= */
 
 .generate-button {
     width: 100%;
@@ -244,7 +258,7 @@ input[type="number"]:focus {
         #ec407a
     );
 
-    box-shadow: 0 10px 22px rgba(236,64,122,0.25);
+    box-shadow: 0 10px 22px rgba(236, 64, 122, 0.25);
 
     transition: 0.25s;
 }
@@ -253,15 +267,28 @@ input[type="number"]:focus {
     transform: translateY(-3px);
 }
 
-/* LOADING */
+.generate-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================
+   LOADING
+========================= */
 
 .loading {
     margin-top: 25px;
+
     background: white;
+
     padding: 40px;
+
     border-radius: 25px;
+
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .loading-icon {
@@ -277,14 +304,20 @@ input[type="number"]:focus {
     color: #78909c;
 }
 
-/* RESULT */
+/* =========================
+   RESULT
+========================= */
 
 .result-card {
     margin-top: 28px;
+
     background: white;
+
     padding: 32px;
+
     border-radius: 28px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
 }
 
 .result-header {
@@ -294,164 +327,14 @@ input[type="number"]:focus {
     margin-bottom: 25px;
 }
 
-.result-header > span {
-    width: 55px;
-    height: 55px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 16px;
-
-    font-size: 28px;
-
-    background: linear-gradient(
-        135deg,
-        #00acc1,
-        #00796b
-    );
-}
-
 .result-header h2 {
     color: #00695c;
+    font-size: 28px;
 }
 
 .result-header p {
     color: #78909c;
     margin-top: 4px;
 }
-
-.trip-info {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-bottom: 20px;
-}
-
-.info-box {
-    padding: 18px;
-    border-radius: 18px;
-    text-align: center;
-
-    background: linear-gradient(
-        135deg,
-        #e0f7fa,
-        #f1f8e9
-    );
-}
-
-.info-box span {
-    display: block;
-    font-size: 25px;
-    margin-bottom: 7px;
-}
-
-.info-box small {
-    display: block;
-    color: #78909c;
-    margin-bottom: 5px;
-}
-
-.info-box strong {
-    display: block;
-    color: #00695c;
-}
-
-.selected-interests {
-    padding: 15px;
-    border-radius: 14px;
-    background: #fff8e1;
-    color: #6d4c41;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #e0eeee;
-    margin: 25px 0;
-}
-
-.itinerary-title {
-    color: #00796b;
-    margin-bottom: 15px;
-}
-
-.itinerary {
-    padding: 25px;
-    border-radius: 20px;
-
-    background: #f8fffd;
-
-    border-left: 5px solid #00acc1;
-
-    line-height: 1.8;
-    color: #37474f;
-}
-
-/* ERROR */
-
-.error {
-    margin-top: 25px;
-    padding: 25px;
-
-    background: #ffebee;
-
-    border-left: 6px solid #e53935;
-
-    border-radius: 16px;
-
-    color: #c62828;
-}
-
-/* FOOTER */
-
-footer {
-    text-align: center;
-    padding: 30px 20px;
-    color: #607d8b;
-}
-
-footer p {
-    font-weight: bold;
-    color: #00796b;
-}
-
-/* MOBILE */
-
-@media (max-width: 800px) {
-
-    .interests {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-
-    .hero h1 {
-        font-size: 32px;
-    }
-
-    .container {
-        width: 94%;
-    }
-
-    .travel-card {
-        padding: 22px;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-
-    .interests {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .trip-info {
-        grid-template-columns: 1fr;
-    }
-
-    .result-card {
-        padding: 22px;
-    }
-}
+    
+        
